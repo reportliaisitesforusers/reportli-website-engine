@@ -1,0 +1,610 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website</title>
+<meta name="description" content="">
+<style>
+/* ===== Design tokens ===== */
+:root{
+  --bg:#F6F7F9; --surface:#FFFFFF; --ink:#14213D; --muted:#4A5568; --line:#DDE2EA;
+  --brand:#14213D; --on-brand:#FFFFFF; --accent:#0F766E;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.65 var(--sans)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--brand);color:var(--on-brand);padding:10px 16px;z-index:100;border-radius:6px}
+.skip:focus{left:8px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}/* ===== Header / navigation ===== */
+header.site{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:inline-flex;align-items:center;gap:10px;font:600 1.25rem/1 var(--serif);text-decoration:none;letter-spacing:-.01em}
+.mark{width:32px;height:32px;flex:none}
+nav.main ul{list-style:none;margin:0;padding:0;display:flex;gap:28px;align-items:center}
+nav.main a{text-decoration:none;font-size:.95rem;color:var(--muted)}
+nav.main a:hover{color:var(--ink)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:9px 14px;font:inherit;color:var(--ink);cursor:pointer}
+.nav-cta{display:none}
+@media(max-width:819px){
+.menu-btn{display:block}
+nav.main{position:absolute;left:0;right:0;top:68px;background:var(--bg);border-bottom:1px solid var(--line);display:none;padding:8px 20px 20px}
+nav.main.open{display:block}
+nav.main ul{flex-direction:column;align-items:stretch;gap:0}
+nav.main li a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
+.bar .btn{display:none}
+}
+@media(min-width:820px){.bar .btn{display:inline-flex}}
+
+/* ===== Buttons ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 24px;border-radius:999px;background:var(--brand);color:var(--on-brand);font:600 .95rem var(--sans);text-decoration:none;border:2px solid var(--brand);cursor:pointer;transition:background .15s,color .15s}
+.btn:hover{background:transparent;color:var(--brand)}
+.btn.ghost{background:transparent;color:var(--brand)}
+.btn.ghost:hover{background:var(--brand);color:var(--on-brand)}
+.btn[disabled]{opacity:.6;cursor:wait}
+
+/* ===== Sections ===== */
+section{padding:72px 0}
+@media(max-width:700px){section{padding:56px 0}}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;margin:0}
+h2{font-size:clamp(1.75rem,3.6vw,2.5rem);line-height:1.15;margin-bottom:12px}
+h3{font-size:1.3rem;line-height:1.25}
+.lead{color:var(--muted);font-size:1.1rem;max-width:62ch}
+.sec-head{margin-bottom:40px;max-width:680px}
+
+/* Hero /
+.hero{padding:56px 0 80px}
+.hero-grid{display:grid;gap:44px;align-items:center}
+@media(min-width:860px){.hero-grid{grid-template-columns:1.25fr .75fr;gap:72px}.hero{padding:88px 0 104px}}
+h1{font-size:clamp(2.3rem,5.6vw,4rem);line-height:1.06}
+.hero .lead{margin:22px 0 32px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.portrait{aspect-ratio:4/5;border-radius:999px 999px 18px 18px;overflow:hidden;background:var(--brand);width:100%;max-width:400px;justify-self:center;position:relative}
+.portrait svg{position:absolute;inset:0;width:100%;height:100%}
+.mono{position:relative;display:flex;align-items:center;justify-content:center;height:100%;color:var(--on-brand);font:600 clamp(3.5rem,10vw,6rem) var(--serif)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero-grid>{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.hero-grid>*:nth-child(2){animation-delay:.15s}
+
+/* About */
+.about{background:var(--surface);border-block:1px solid var(--line)}
+.about-grid{display:grid;gap:28px}
+@media(min-width:860px){.about-grid{grid-template-columns:.8fr 1.2fr;gap:72px}}
+.prose p{margin:0 0 1.1em;max-width:68ch;font-family:var(--serif);font-size:1.12rem;line-height:1.75}
+.audience{margin-top:24px;padding-left:16px;border-left:3px solid var(--accent);color:var(--muted)}
+
+/* Expertise */
+.exp-grid{display:grid;gap:0 40px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.exp{padding:20px 0;border-top:2px solid var(--ink)}
+.exp h3{font-size:1.15rem}
+.exp p{margin:6px 0 0;color:var(--muted)}
+
+/* Offers */
+.offer-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.offer{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.offer .type{color:var(--accent);font-weight:600;font-size:.9rem}
+.offer p{margin:0;color:var(--muted);flex:1}
+.price{font:600 1.15rem var(--serif)}
+.offer .btn{align-self:flex-start;margin-top:8px}
+
+/* Benefits */
+.benefits{background:var(--brand);color:var(--on-brand)}
+.benefits .lead,.benefits li p{color:inherit;opacity:.82}
+.ben-list{list-style:none;margin:0;padding:0;display:grid;gap:28px 48px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.ben-list li{display:grid;grid-template-columns:28px 1fr;gap:14px}
+.ben-list svg{width:28px;height:28px;margin-top:2px}
+.ben-list h3{font-size:1.15rem}
+.ben-list p{margin:4px 0 0}
+
+/* Testimonials + results */
+.quote-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+blockquote{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px}
+blockquote p{margin:0 0 18px;font:1.12rem/1.65 var(--serif)}
+blockquote footer{font-size:.92rem;color:var(--muted)}
+blockquote footer strong{color:var(--ink)}
+.res-grid{display:grid;gap:0 40px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.res{padding:22px 0;border-top:2px solid var(--accent)}
+.res .metric{font:600 clamp(2rem,4vw,2.8rem)/1.1 var(--serif)}
+.res .label{font-weight:600;margin-top:4px}
+.res p{margin:6px 0 0;color:var(--muted)}
+
+/* Contact */
+.contact{background:var(--surface);border-top:1px solid var(--line)}
+.contact-grid{display:grid;gap:40px}
+@media(min-width:860px){.contact-grid.two{grid-template-columns:.85fr 1.15fr;gap:72px}}
+.info a{color:var(--ink);font-weight:600}
+.info ul{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
+form{display:grid;gap:16px}
+label{display:grid;gap:6px;font-weight:600;font-size:.95rem}
+input,textarea{font:inherit;padding:12px 14px;border:1px solid #8A94A6;border-radius:10px;background:#fff;color:var(--ink);width:100%}
+textarea{min-height:140px;resize:vertical}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+.status{min-height:1.5em;font-weight:600}
+.status.ok{color:#166534}.status.err{color:#B42318}
+.note{font-size:.88rem;color:var(--muted);margin:0}
+
+/* Footer /
+footer.site{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:.92rem}
+.foot{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:flex-start}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
+.foot a{text-decoration:none}.foot a:hover{text-decoration:underline}
+.foot .name{font:600 1.1rem var(--serif);color:var(--ink)}
+.setup{max-width:640px;margin:15vh auto;padding:0 20px;font-family:var(--serif)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-grid>{animation:none}.btn{transition:none}}
+</style>
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="app"></div>
+<noscript><p style="padding:24px">This website needs JavaScript enabled to display its content.</p></noscript><script>
+/* =====================================================================
+   WEBSITE_DATA
+   Reportli replaces this placeholder with the generated JSON object.
+   Keep the declaration exactly as written.
+   ===================================================================== */
+const WEBSITE_DATA = {"business_name":"Vsbs","tagline":"","hero_title":"","hero_subtitle":"","hero_cta":"","secondary_cta":"","about_title":"","about_text":"","services":[],"expertise":[],"offers":[],"benefits":[],"testimonials":[],"results":[],"courses":[],"contact_title":"","contact_description":"","email":"","phone":"","address":"","social_links":{"instagram":"","youtube":"","linkedin":"","facebook":"","twitter":""},"brand_colors":{"primary":"#111111","secondary":"#FFFFFF","accent":"#D4AF37","background":"#FFFFFF","text":"#111111"},"form_endpoint":"","section_titles":{"expertise":"Our Expertise","offers":"Our Offers","benefits":"Our Benefits","testimonials":"Testimonials","results":"Our Results","courses":"Our Courses","contact":"Get In Touch"}};
+
+(function () {
+  "use strict";
+  var D = (typeof WEBSITE_DATA === "object" && WEBSITE_DATA) || {};
+
+  /* ---------- Safe helpers ---------- */
+  var str = function (v) { return typeof v === "string" ? v.trim() : ""; };
+  var list = function (v) { return Array.isArray(v) ? v : []; };
+
+  var esc = function (v) {
+    return String(v == null ? "" : v).replace(/[&<>"'`]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;", "`": "&#96;" }[c];
+    });
+  };
+
+  var safeUrl = function (u) {
+    u = str(u);
+    return /^(https?:|mailto:|tel:|#|\/(?!\/))/i.test(u) ? u : "";
+  };
+
+  var isExternal = function (u) { return /^https?:/i.test(u); };
+
+  var hex = function (v) {
+    v = str(v);
+    if (/^#[0-9a-f]{3}$/i.test(v)) v = "#" + v.slice(1).replace(/./g, "$&$&");
+    return /^#[0-9a-f]{6}$/i.test(v) ? v : "";
+  };
+
+  var onColor = function (h) {
+    var c = [1, 3, 5].map(function (i) {
+      var x = parseInt(h.substr(i, 2), 16) / 255;
+      return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2] > 0.4 ? "#10151F" : "#FFFFFF";
+  };
+
+  var title = function (key, fallback) { return str((D.section_titles || {})[key]) || fallback; };
+
+  var paras = function (t) {
+    return str(t).split(/\n{2,}/).filter(Boolean).map(function (p) {
+      return "<p>" + esc(p) + "</p>";
+    }).join("");
+  };
+
+  /* ---------- Normalize data ---------- */
+  var name = str(D.business_name) || str(D.creator_name);
+  var creator = str(D.creator_name);
+  var email = str(D.contact_email);
+  var endpoint = safeUrl(D.form_endpoint);
+
+  var offers = list(D.courses).concat(list(D.offers)).filter(function (o) {
+    return o && str(o.title);
+  });
+
+  var expertise = list(D.expertise).map(function (e) {
+    return typeof e === "string"
+      ? { title: str(e) }
+      : { title: str(e && e.title), description: str(e && e.description) };
+  }).filter(function (e) { return e.title; });
+
+  var benefits = list(D.benefits).map(function (b) {
+    return typeof b === "string"
+      ? { title: str(b) }
+      : { title: str(b && b.title), description: str(b && b.description) };
+  }).filter(function (b) { return b.title; });
+
+  var testimonials = list(D.testimonials).filter(function (t) {
+    return t && str(t.quote);
+  });
+
+  var results = list(D.results).filter(function (r) {
+    return r && (str(r.metric) || str(r.description));
+  });
+
+  var socials = list(D.social_links).filter(function (s) {
+    return s && str(s.platform) && safeUrl(s.url);
+  });
+
+  var headline = str(D.hero_headline) || name;
+  var aboutText = str(D.about_description) || str(D.business_description);
+  var hasAbout = !!(aboutText || str(D.about_title));
+  var hasForm = !!(endpoint || email);
+  var hasContact = !!(email || socials.length || hasForm);
+
+  if (!name && !headline) {
+    document.getElementById("app").innerHTML =
+      '<main class="setup"><h1>Website not configured</h1><p class="lead">Add the business details to WEBSITE_DATA to publish the site.</p></main>';
+    return;
+  }
+
+  /* ---------- Apply brand colors ---------- */
+  var bc = D.brand_colors || {};
+  var root = document.documentElement.style;
+  var primary = hex(bc.primary);
+  var accent = hex(bc.accent);
+  var bg = hex(bc.background);
+  var ink = hex(bc.text);
+
+  if (primary) {
+    root.setProperty("--brand", primary);
+    root.setProperty("--on-brand", onColor(primary));
+  }
+  if (accent) root.setProperty("--accent", accent);
+  if (bg) root.setProperty("--bg", bg);
+  if (ink) root.setProperty("--ink", ink);
+
+  /* ---------- SEO ---------- */
+  document.title = headline && name && headline !== name
+    ? name + " | " + headline
+    : (name || headline);
+
+  var metaDesc = str(D.hero_description) || str(D.business_description);
+
+  if (metaDesc) {
+    document.querySelector('meta[name="description"]').setAttribute("content", metaDesc.slice(0, 160));
+  }
+
+  var ld = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: name
+  };
+
+  if (metaDesc) ld.description = metaDesc;
+  if (creator) ld.founder = { "@type": "Person", name: creator };
+  if (socials.length) {
+    ld.sameAs = socials.map(function (s) {
+      return safeUrl(s.url);
+    }).filter(isExternal);
+  }
+
+  var ldEl = document.createElement("script");
+  ldEl.type = "application/ld+json";
+  ldEl.textContent = JSON.stringify(ld);
+  document.head.appendChild(ldEl);
+
+  /* ---------- Navigation ---------- */
+  var nav = [{ id: "home", label: "Home" }];
+
+  if (hasAbout || expertise.length) {
+    nav.push({ id: hasAbout ? "about" : "expertise", label: "About" });
+  }
+
+  if (offers.length) nav.push({ id: "offers", label: "Offers" });
+  if (hasContact) nav.push({ id: "contact", label: "Contact" });
+
+  var ctaText = str(D.primary_cta_text);
+  var ctaLink = safeUrl(D.primary_cta_link);
+
+  if (ctaText && !ctaLink && hasContact) ctaLink = "#contact";
+
+  var linkAttrs = function (u) {
+    return 'href="' + esc(u) + '"' +
+      (isExternal(u) ? ' target="_blank" rel="noopener noreferrer"' : "");
+  };
+
+  var btn = function (text, link, cls) {
+    return text && link
+      ? '<a class="btn ' + (cls || "") + '" ' + linkAttrs(link) + ">" + esc(text) + "</a>"
+      : "";
+  };
+
+  /* ---------- Header ---------- */
+  var navLinks = nav.map(function (n) {
+    return '<li><a href="#' + n.id + '">' + esc(n.label) + "</a></li>";
+  }).join("");
+
+  var mark =
+    '<svg class="mark" viewBox="0 0 32 32" aria-hidden="true">' +
+    '<rect width="32" height="32" rx="9" fill="var(--brand)"/>' +
+    '<circle cx="25" cy="7" r="3" fill="var(--accent)"/>' +
+    '<text x="15" y="23" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="600" fill="var(--on-brand)">' +
+    esc(name.charAt(0).toUpperCase()) +
+    "</text></svg>";
+
+  var header =
+    '<header class="site"><div class="wrap bar">' +
+    '<a class="logo" href="#home">' + mark + "<span>" + esc(name) + "</span></a>" +
+    '<nav class="main" id="nav" aria-label="Main"><ul>' + navLinks + "</ul></nav>" +
+    btn(ctaText, ctaLink) +
+    '<button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>' +
+    "</div></header>";
+
+  /* ---------- Hero ---------- */
+  var initials = creator.split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) {
+    return w[0].toUpperCase();
+  }).join("");
+
+  var visual = initials
+    ? '<div class="portrait" aria-hidden="true">' +
+      '<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">' +
+      '<circle cx="330" cy="120" r="70" fill="var(--accent)" opacity=".9"/>' +
+      '<circle cx="70" cy="430" r="120" fill="var(--on-brand)" opacity=".08"/>' +
+      '<path d="M0 380 Q200 300 400 380 V500 H0Z" fill="var(--on-brand)" opacity=".06"/>' +
+      "</svg><div class=\"mono\">" + esc(initials) + "</div></div>"
+    : "";
+
+  var secText = str(D.secondary_cta_text);
+  var secLink = safeUrl(D.secondary_cta_link);
+
+  if (!secText && offers.length) {
+    secText = "View offers";
+    secLink = "#offers";
+  }
+
+  var hero =
+    '<section class="hero" id="home"><div class="wrap hero-grid"><div>' +
+    "<h1>" + esc(headline) + "</h1>" +
+    (str(D.hero_description) ? '<p class="lead">' + esc(D.hero_description) + "</p>" : "") +
+    '<div class="cta-row">' + btn(ctaText, ctaLink) + btn(secText, secLink, "ghost") + "</div></div>" +
+    visual + "</div></section>";
+
+  /* ---------- About ---------- */
+  var about = hasAbout
+    ? '<section class="about" id="about"><div class="wrap about-grid">' +
+      "<div><h2>" + esc(str(D.about_title) || title("about", creator ? "About " + creator : "About")) + "</h2></div>" +
+      '<div class="prose">' + paras(aboutText) +
+      (str(D.target_audience) ? '<p class="audience">Who this is for: ' + esc(D.target_audience) + "</p>" : "") +
+      "</div></div></section>"
+    : "";
+
+  /* ---------- Expertise ---------- */
+  var expSec = expertise.length
+    ? '<section id="expertise"><div class="wrap"><div class="sec-head"><h2>' +
+      esc(title("expertise", "Areas of expertise")) +
+      '</h2></div><div class="exp-grid">' +
+      expertise.map(function (e) {
+        return '<div class="exp"><h3>' + esc(e.title) + "</h3>" +
+          (e.description ? "<p>" + esc(e.description) + "</p>" : "") +
+          "</div>";
+      }).join("") +
+      "</div></div></section>"
+    : "";
+
+  /* ---------- Offers ---------- */
+  var offerSec = offers.length
+    ? '<section id="offers"><div class="wrap"><div class="sec-head"><h2>' +
+      esc(title("offers", "Ways to work together")) +
+      '</h2></div><div class="offer-grid">' +
+      offers.map(function (o) {
+        var link = safeUrl(o.cta_link) || (hasContact ? "#contact" : "");
+        return '<article class="offer">' +
+          (str(o.type) ? '<span class="type">' + esc(o.type) + "</span>" : "") +
+          "<h3>" + esc(o.title) + "</h3>" +
+          (str(o.description) ? "<p>" + esc(o.description) + "</p>" : "") +
+          (str(o.price) ? '<div class="price">' + esc(o.price) + "</div>" : "") +
+          btn(str(o.cta_text) || "Learn more", link) +
+          "</article>";
+      }).join("") +
+      "</div></div></section>"
+    : "";
+
+  /* ---------- Benefits ---------- */
+  var check =
+    '<svg viewBox="0 0 28 28" fill="none" aria-hidden="true">' +
+    '<circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5"/>' +
+    '<path d="M8.5 14.5l3.5 3.5 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+    "</svg>";
+
+  var benSec = benefits.length
+    ? '<section class="benefits" id="benefits"><div class="wrap"><div class="sec-head"><h2>' +
+      esc(title("benefits", "What you’ll gain")) +
+      '</h2></div><ul class="ben-list">' +
+      benefits.map(function (b) {
+        return "<li>" + check + "<div><h3>" + esc(b.title) + "</h3>" +
+          (b.description ? "<p>" + esc(b.description) + "</p>" : "") +
+          "</div></li>";
+      }).join("") +
+      "</ul></div></section>"
+    : "";
+
+  /* ---------- Testimonials ---------- */
+  var testSec = testimonials.length
+    ? '<section id="testimonials"><div class="wrap"><div class="sec-head"><h2>' +
+      esc(title("testimonials", "Client feedback")) +
+      '</h2></div><div class="quote-grid">' +
+      testimonials.map(function (t) {
+        var who = [
+          str(t.name) ? "<strong>" + esc(t.name) + "</strong>" : "",
+          esc(str(t.role))
+        ].filter(Boolean).join(", ");
+
+        return "<blockquote><p>“" + esc(t.quote) + "”</p>" +
+          (who ? "<footer>" + who + "</footer>" : "") +
+          "</blockquote>";
+      }).join("") +
+      "</div></div></section>"
+    : "";
+
+  /* ---------- Results ---------- */
+  var resSec = results.length
+    ? '<section id="results"><div class="wrap"><div class="sec-head"><h2>' +
+      esc(title("results", "Results")) +
+      '</h2></div><div class="res-grid">' +
+      results.map(function (r) {
+        return '<div class="res">' +
+          (str(r.metric) ? '<div class="metric">' + esc(r.metric) + "</div>" : "") +
+          (str(r.label) ? '<div class="label">' + esc(r.label) + "</div>" : "") +
+          (str(r.description) ? "<p>" + esc(r.description) + "</p>" : "") +
+          "</div>";
+      }).join("") +
+      "</div></div></section>"
+    : "";
+
+  /* ---------- Contact ---------- */
+  var infoBlock = (email || socials.length)
+    ? '<div class="info">' +
+      (email ? '<p class="lead">Email <a href="mailto:' + esc(email) + '">' + esc(email) + "</a></p>" : "") +
+      (socials.length
+        ? "<ul>" + socials.map(function (s) {
+            var u = safeUrl(s.url);
+            return "<li><a " + linkAttrs(u) + ">" + esc(s.platform) + "</a></li>";
+          }).join("") + "</ul>"
+        : "") +
+      "</div>"
+    : "";
+
+  var formBlock = hasForm
+    ? '<form id="leadForm" novalidate>' +
+      '<label>Name<input name="name" autocomplete="name" required></label>' +
+      '<label>Email<input name="email" type="email" autocomplete="email" required></label>' +
+      '<label>Message<textarea name="message" required></textarea></label>' +  '<div class="hp" aria-hidden="true"><label>Leave blank<input name="company_website" tabindex="-1" autocomplete="off"></label></div>' +
+  '<button class="btn" type="submit">' + (endpoint ? "Send message" : "Open email draft") + "</button>" +
+  '<div class="status" id="formStatus" role="status" aria-live="polite"></div>' +
+  (endpoint ? "" : '<p class="note">This opens your email app with the message filled in. Nothing is sent until you send it.</p>') +
+  "</form>"
+: "";
+
+var contactSec = hasContact
+? '<section class="contact" id="contact"><div class="wrap contact-grid ' +
+(infoBlock && formBlock ? "two" : "") +
+'"><div><h2>' +
+esc(title("contact", hasForm ? "Start a conversation" : "Get in touch")) +
+"</h2>" + infoBlock + "</div>" +
+(formBlock ? "<div>" + formBlock + "</div>" : "") +
+"</div></section>"
+: "";
+
+/* ---------- Footer ---------- */
+var footer =
+'<footer class="site"><div class="wrap foot"><div><div class="name logo">' +
+mark + "<span>" + esc(name) + "</span></div>" +
+"<div>© " + new Date().getFullYear() + " " + esc(name) + ". All rights reserved.</div></div>" +
+'<ul aria-label="Footer">' + navLinks + "</ul>" +
+(socials.length
+? '<ul aria-label="Social media">' +
+socials.map(function (s) {
+return "<li><a " + linkAttrs(safeUrl(s.url)) + ">" + esc(s.platform) + "</a></li>";
+}).join("") +
+"</ul>"
+: "") +
+"</div></footer>";
+
+/* ---------- Render ---------- */
+document.getElementById("app").innerHTML =
+header + '<main id="main">' +
+hero + about + expSec + offerSec + benSec + testSec + resSec + contactSec +
+"</main>" + footer;
+
+/* ---------- Mobile menu ---------- */
+var menuBtn = document.getElementById("menuBtn");
+var navEl = document.getElementById("nav");
+
+function setMenu(open) {
+navEl.classList.toggle("open", open);
+menuBtn.setAttribute("aria-expanded", String(open));
+menuBtn.textContent = open ? "Close" : "Menu";
+}
+
+menuBtn.addEventListener("click", function () {
+setMenu(!navEl.classList.contains("open"));
+});
+
+navEl.addEventListener("click", function (e) {
+if (e.target.tagName === "A") setMenu(false);
+});
+
+document.addEventListener("keydown", function (e) {
+if (e.key === "Escape") setMenu(false);
+});
+
+/* ---------- Lead form ---------- */
+var form = document.getElementById("leadForm");
+
+if (form) {
+var status = document.getElementById("formStatus");
+
+var say = function (msg, cls) {
+  status.textContent = msg;
+  status.className = "status " + (cls || "");
+};
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  var f = form.elements;
+
+  if (f.company_website.value) return;
+
+  if (
+    !f.name.value.trim() ||
+    !/^\S+@\S+\.\S+$/.test(f.email.value.trim()) ||
+    !f.message.value.trim()
+  ) {
+    say("Please enter your name, a valid email address and a message.", "err");
+    return;
+  }
+
+  var payload = {
+    name: f.name.value.trim(),
+    email: f.email.value.trim(),
+    message: f.message.value.trim()
+  };
+
+  if (!endpoint) {
+    location.href = "mailto:" + encodeURIComponent(email).replace(/%40/g, "@") +
+      "?subject=" + encodeURIComponent("Message from " + payload.name) +
+      "&body=" + encodeURIComponent(
+        payload.message + "\n\n" + payload.name + " (" + payload.email + ")"
+      );
+
+    say("Your email app should open with the message ready to send.", "ok");
+    return;
+  }
+
+  var submit = form.querySelector("button");
+  submit.disabled = true;
+  say("Sending…");
+
+  fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    form.reset();
+    say("Thank you. Your message has been sent.", "ok");
+  })
+  .catch(function () {
+    say(
+      "Your message could not be sent." +
+      (email ? " Please email " + email + " directly." : " Please try again later."),
+      "err"
+    );
+  })
+  .then(function () {
+    submit.disabled = false;
+  });
+});
+
+}
+})();
+</script>
+
+</body>
+</html>
