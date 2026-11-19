@@ -1,610 +1,243 @@
-<!DOCTYPE html><html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Website</title>
-<meta name="description" content="">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Website</title><meta name="description" content="">
 <style>
-/* ===== Design tokens ===== */
-:root{
-  --bg:#F6F7F9; --surface:#FFFFFF; --ink:#14213D; --muted:#4A5568; --line:#DDE2EA;
-  --brand:#14213D; --on-brand:#FFFFFF; --accent:#0F766E;
-  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.65 var(--sans)}
-img{max-width:100%;display:block}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
-.skip{position:absolute;left:-999px;top:8px;background:var(--brand);color:var(--on-brand);padding:10px 16px;z-index:100;border-radius:6px}
-.skip:focus{left:8px}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}/* ===== Header / navigation ===== */
+:root{--bg:#fff;--ink:#1a1a1a;--brand:#1a1a1a;--on-brand:#fff;--accent:#0f766e;--surface:color-mix(in srgb,var(--ink) 5%,var(--bg));--muted:color-mix(in srgb,var(--ink) 68%,var(--bg));--line:color-mix(in srgb,var(--ink) 16%,var(--bg));--r:12px;--br:var(--r);--head:Georgia,serif;--body:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.65 var(--body)}
+a{color:inherit}h1,h2,h3{font-family:var(--head);margin:0;line-height:1.15}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 header.site{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
-.bar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
-.logo{display:inline-flex;align-items:center;gap:10px;font:600 1.25rem/1 var(--serif);text-decoration:none;letter-spacing:-.01em}
-.mark{width:32px;height:32px;flex:none}
-nav.main ul{list-style:none;margin:0;padding:0;display:flex;gap:28px;align-items:center}
-nav.main a{text-decoration:none;font-size:.95rem;color:var(--muted)}
-nav.main a:hover{color:var(--ink)}
-.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:9px 14px;font:inherit;color:var(--ink);cursor:pointer}
-.nav-cta{display:none}
-@media(max-width:819px){
-.menu-btn{display:block}
-nav.main{position:absolute;left:0;right:0;top:68px;background:var(--bg);border-bottom:1px solid var(--line);display:none;padding:8px 20px 20px}
-nav.main.open{display:block}
-nav.main ul{flex-direction:column;align-items:stretch;gap:0}
-nav.main li a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
-.bar .btn{display:none}
-}
-@media(min-width:820px){.bar .btn{display:inline-flex}}
-
-/* ===== Buttons ===== */
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 24px;border-radius:999px;background:var(--brand);color:var(--on-brand);font:600 .95rem var(--sans);text-decoration:none;border:2px solid var(--brand);cursor:pointer;transition:background .15s,color .15s}
-.btn:hover{background:transparent;color:var(--brand)}
-.btn.ghost{background:transparent;color:var(--brand)}
-.btn.ghost:hover{background:var(--brand);color:var(--on-brand)}
-.btn[disabled]{opacity:.6;cursor:wait}
-
-/* ===== Sections ===== */
-section{padding:72px 0}
-@media(max-width:700px){section{padding:56px 0}}
-h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;margin:0}
-h2{font-size:clamp(1.75rem,3.6vw,2.5rem);line-height:1.15;margin-bottom:12px}
-h3{font-size:1.3rem;line-height:1.25}
-.lead{color:var(--muted);font-size:1.1rem;max-width:62ch}
-.sec-head{margin-bottom:40px;max-width:680px}
-
-/* Hero /
-.hero{padding:56px 0 80px}
-.hero-grid{display:grid;gap:44px;align-items:center}
-@media(min-width:860px){.hero-grid{grid-template-columns:1.25fr .75fr;gap:72px}.hero{padding:88px 0 104px}}
-h1{font-size:clamp(2.3rem,5.6vw,4rem);line-height:1.06}
-.hero .lead{margin:22px 0 32px}
-.cta-row{display:flex;flex-wrap:wrap;gap:12px}
-.portrait{aspect-ratio:4/5;border-radius:999px 999px 18px 18px;overflow:hidden;background:var(--brand);width:100%;max-width:400px;justify-self:center;position:relative}
-.portrait svg{position:absolute;inset:0;width:100%;height:100%}
-.mono{position:relative;display:flex;align-items:center;justify-content:center;height:100%;color:var(--on-brand);font:600 clamp(3.5rem,10vw,6rem) var(--serif)}
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.hero-grid>{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
-.hero-grid>*:nth-child(2){animation-delay:.15s}
-
-/* About */
-.about{background:var(--surface);border-block:1px solid var(--line)}
-.about-grid{display:grid;gap:28px}
-@media(min-width:860px){.about-grid{grid-template-columns:.8fr 1.2fr;gap:72px}}
-.prose p{margin:0 0 1.1em;max-width:68ch;font-family:var(--serif);font-size:1.12rem;line-height:1.75}
-.audience{margin-top:24px;padding-left:16px;border-left:3px solid var(--accent);color:var(--muted)}
-
-/* Expertise */
-.exp-grid{display:grid;gap:0 40px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.exp{padding:20px 0;border-top:2px solid var(--ink)}
-.exp h3{font-size:1.15rem}
-.exp p{margin:6px 0 0;color:var(--muted)}
-
-/* Offers */
-.offer-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.offer{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px}
-.offer .type{color:var(--accent);font-weight:600;font-size:.9rem}
-.offer p{margin:0;color:var(--muted);flex:1}
-.price{font:600 1.15rem var(--serif)}
-.offer .btn{align-self:flex-start;margin-top:8px}
-
-/* Benefits */
-.benefits{background:var(--brand);color:var(--on-brand)}
-.benefits .lead,.benefits li p{color:inherit;opacity:.82}
-.ben-list{list-style:none;margin:0;padding:0;display:grid;gap:28px 48px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.ben-list li{display:grid;grid-template-columns:28px 1fr;gap:14px}
-.ben-list svg{width:28px;height:28px;margin-top:2px}
-.ben-list h3{font-size:1.15rem}
-.ben-list p{margin:4px 0 0}
-
-/* Testimonials + results */
-.quote-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-blockquote{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px}
-blockquote p{margin:0 0 18px;font:1.12rem/1.65 var(--serif)}
-blockquote footer{font-size:.92rem;color:var(--muted)}
-blockquote footer strong{color:var(--ink)}
-.res-grid{display:grid;gap:0 40px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.res{padding:22px 0;border-top:2px solid var(--accent)}
-.res .metric{font:600 clamp(2rem,4vw,2.8rem)/1.1 var(--serif)}
-.res .label{font-weight:600;margin-top:4px}
-.res p{margin:6px 0 0;color:var(--muted)}
-
-/* Contact */
-.contact{background:var(--surface);border-top:1px solid var(--line)}
-.contact-grid{display:grid;gap:40px}
-@media(min-width:860px){.contact-grid.two{grid-template-columns:.85fr 1.15fr;gap:72px}}
-.info a{color:var(--ink);font-weight:600}
-.info ul{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
-form{display:grid;gap:16px}
-label{display:grid;gap:6px;font-weight:600;font-size:.95rem}
-input,textarea{font:inherit;padding:12px 14px;border:1px solid #8A94A6;border-radius:10px;background:#fff;color:var(--ink);width:100%}
-textarea{min-height:140px;resize:vertical}
-.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
-.status{min-height:1.5em;font-weight:600}
-.status.ok{color:#166534}.status.err{color:#B42318}
-.note{font-size:.88rem;color:var(--muted);margin:0}
-
-/* Footer /
-footer.site{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:.92rem}
-.foot{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:flex-start}
-.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
-.foot a{text-decoration:none}.foot a:hover{text-decoration:underline}
-.foot .name{font:600 1.1rem var(--serif);color:var(--ink)}
-.setup{max-width:640px;margin:15vh auto;padding:0 20px;font-family:var(--serif)}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-grid>{animation:none}.btn{transition:none}}
-</style>
-
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<div id="app"></div>
-<noscript><p style="padding:24px">This website needs JavaScript enabled to display its content.</p></noscript><script>
-/* =====================================================================
-   WEBSITE_DATA
-   Reportli replaces this placeholder with the generated JSON object.
-   Keep the declaration exactly as written.
-   ===================================================================== */
+.bar{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.logo{display:inline-flex;align-items:center;gap:10px;font:700 1.2rem var(--head);text-decoration:none}
+.logo svg{width:36px;height:36px;flex:none}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:26px}
+nav a{text-decoration:none;color:var(--muted);font-size:.95rem}nav a:hover{color:var(--ink)}
+.menu{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;font:inherit;color:var(--ink)}
+@media(max-width:819px){.menu{display:block}nav{position:absolute;left:0;right:0;top:66px;background:var(--bg);border-bottom:1px solid var(--line);display:none;padding:8px 20px 16px}nav.open{display:block}nav ul{flex-direction:column;gap:0}nav li a{display:block;padding:13px 0;border-bottom:1px solid var(--line)}.bar>.btn{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 24px;border-radius:var(--br);background:var(--brand);color:var(--on-brand);border:2px solid var(--brand);font:600 .95rem var(--body);text-decoration:none;cursor:pointer}
+.btn:hover{opacity:.88}.btn.ghost{background:transparent;color:var(--brand)}.btn[disabled]{opacity:.6}
+.inv .btn,[data-hero=fullbleed] .hero .btn,[data-sec=tiles] .item .btn{background:var(--on-brand);color:var(--brand);border-color:var(--on-brand)}
+.inv .btn.ghost,[data-hero=fullbleed] .hero .btn.ghost,[data-sec=tiles] .item .btn.ghost{background:transparent;color:var(--on-brand)}
+section{padding:76px 0}@media(max-width:700px){section{padding:56px 0}}
+h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin-bottom:12px}h3{font-size:1.2rem}
+.lead{color:var(--muted);font-size:1.1rem;max-width:60ch}.head{margin-bottom:36px}
+/* hero */
+.hero{padding:64px 0 84px}.hero-in{display:grid;gap:40px;align-items:center}
+h1{font-size:clamp(2.3rem,5.8vw,4.2rem);letter-spacing:-.02em}.hero .lead{margin:20px 0 30px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}.vis{width:100%;max-width:380px;justify-self:center}.vis svg{width:100%;height:auto}
+[data-hero=split] .hero-in{grid-template-columns:1fr}@media(min-width:860px){[data-hero=split] .hero-in{grid-template-columns:1.2fr .8fr;gap:64px}}
+[data-hero=centered] .hero-in{text-align:center;justify-items:center}[data-hero=centered] .lead{margin-inline:auto}[data-hero=centered] .cta{justify-content:center}[data-hero=centered] .vis{max-width:120px;order:-1}
+[data-hero=fullbleed] .hero{background:var(--brand);color:var(--on-brand);padding:110px 0}[data-hero=fullbleed] .hero .lead{color:inherit;opacity:.85}[data-hero=fullbleed] .vis{display:none}
+[data-hero=stacked] .vis{order:-1;max-width:none;height:170px;overflow:hidden;border-radius:var(--r);background:var(--brand)}[data-hero=stacked] .vis svg{height:100%;width:auto;margin:0 auto;display:block}
+/* items */
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.item{padding:26px;display:flex;flex-direction:column;gap:10px}.item p{margin:0;color:var(--muted)}.item .type{color:var(--accent);font-weight:600;font-size:.9rem}.price{font:700 1.15rem var(--head)}.item .btn{align-self:flex-start;margin-top:auto}
+[data-sec=cards] .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+[data-sec=lines] .item{border-top:3px solid var(--accent);padding-inline:0}
+[data-sec=tiles] .item{background:var(--brand);color:var(--on-brand);border-radius:var(--r)}[data-sec=tiles] .item p{color:inherit;opacity:.82}
+[data-sec=alternating] .item{border-left:4px solid var(--accent);padding-left:20px}[data-sec=alternating] main section:nth-of-type(even){background:var(--surface)}
+.about{display:grid;gap:28px}@media(min-width:860px){.about{grid-template-columns:.8fr 1.2fr;gap:64px}}
+.about p{margin:0 0 1em;max-width:66ch}.aud{border-left:3px solid var(--accent);padding-left:14px;color:var(--muted)}
+.band{background:var(--brand);color:var(--on-brand)}.band .lead,.band .item p{color:inherit;opacity:.85}
+.band .item{background:transparent!important;border:0!important;color:inherit;padding-inline:0}
+blockquote{margin:0;padding:26px;background:var(--surface);border-radius:var(--r)}blockquote p{margin:0 0 14px;font:1.1rem/1.6 var(--head)}blockquote footer{color:var(--muted);font-size:.92rem}
+.metric{font:700 clamp(2rem,4vw,2.8rem)/1.1 var(--head);color:var(--accent)}
+.contact{display:grid;gap:36px}@media(min-width:860px){.contact.two{grid-template-columns:.85fr 1.15fr;gap:64px}}
+.info a{font-weight:600}.info ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
+form{display:grid;gap:14px}label{display:grid;gap:6px;font-weight:600;font-size:.95rem}
+input,textarea{font:inherit;padding:12px 14px;border:1px solid color-mix(in srgb,var(--ink) 40%,var(--bg));border-radius:min(var(--r),12px);background:var(--bg);color:var(--ink);width:100%}textarea{min-height:130px}
+.hp{position:absolute;left:-9999px}.status{min-height:1.4em;font-weight:600}.ok{color:#166534}.err{color:#b42318}.note{font-size:.88rem;color:var(--muted);margin:0}
+footer.site{border-top:1px solid var(--line);padding:36px 0;color:var(--muted);font-size:.92rem}.foot{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between}.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 18px}.foot a{text-decoration:none}
+.setup{max-width:600px;margin:15vh auto;padding:0 20px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head><body><div id="app"></div>
+<noscript><p style="padding:24px">This website needs JavaScript enabled.</p></noscript>
+<script>
 const WEBSITE_DATA = __WEBSITE_DATA_JSON__;
 
 (function () {
   "use strict";
   var D = (typeof WEBSITE_DATA === "object" && WEBSITE_DATA) || {};
-
-  /* ---------- Safe helpers ---------- */
+  var DS = D.design || {};
   var str = function (v) { return typeof v === "string" ? v.trim() : ""; };
   var list = function (v) { return Array.isArray(v) ? v : []; };
-
   var esc = function (v) {
     return String(v == null ? "" : v).replace(/[&<>"'`]/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;", "`": "&#96;" }[c];
     });
   };
-
-  var safeUrl = function (u) {
-    u = str(u);
-    return /^(https?:|mailto:|tel:|#|\/(?!\/))/i.test(u) ? u : "";
+  var safeUrl = function (u) { u = str(u); return /^(https?:|mailto:|tel:|#|\/(?!\/))/i.test(u) ? u : ""; };
+  var ext = function (u) { return /^https?:/i.test(u); };
+  var hex = function (v) { v = str(v); return /^#[0-9a-f]{6}$/i.test(v) ? v : ""; };
+  var lum = function (h) {
+    var c = [1, 3, 5].map(function (i) { var x = parseInt(h.substr(i, 2), 16) / 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); });
+    return .2126 * c[0] + .7152 * c[1] + .0722 * c[2];
+  };
+  var onColor = function (h) { return lum(h) > .4 ? "#10151F" : "#FFFFFF"; };
+  var title = function (k, f) { return str((D.section_titles || {})[k]) || f; };
+  var paras = function (t) { return str(t).split(/\n{2,}/).filter(Boolean).map(function (p) { return "<p>" + esc(p) + "</p>"; }).join(""); };
+  var objs = function (v, keys) {
+    return list(v).map(function (i) { return typeof i === "string" ? { title: i } : i; })
+      .filter(function (i) { return i && typeof i === "object"; })
+      .map(function (i) { var o = {}; keys.forEach(function (k) { o[k] = str(i[k]); }); return o; });
   };
 
-  var isExternal = function (u) { return /^https?:/i.test(u); };
-
-  var hex = function (v) {
-    v = str(v);
-    if (/^#[0-9a-f]{3}$/i.test(v)) v = "#" + v.slice(1).replace(/./g, "$&$&");
-    return /^#[0-9a-f]{6}$/i.test(v) ? v : "";
-  };
-
-  var onColor = function (h) {
-    var c = [1, 3, 5].map(function (i) {
-      var x = parseInt(h.substr(i, 2), 16) / 255;
-      return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
-    });
-    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2] > 0.4 ? "#10151F" : "#FFFFFF";
-  };
-
-  var title = function (key, fallback) { return str((D.section_titles || {})[key]) || fallback; };
-
-  var paras = function (t) {
-    return str(t).split(/\n{2,}/).filter(Boolean).map(function (p) {
-      return "<p>" + esc(p) + "</p>";
-    }).join("");
-  };
-
-  /* ---------- Normalize data ---------- */
   var name = str(D.business_name) || str(D.creator_name);
-  var creator = str(D.creator_name);
-  var email = str(D.contact_email);
-  var endpoint = safeUrl(D.form_endpoint);
-
-  var offers = list(D.courses).concat(list(D.offers)).filter(function (o) {
-    return o && str(o.title);
-  });
-
-  var expertise = list(D.expertise).map(function (e) {
-    return typeof e === "string"
-      ? { title: str(e) }
-      : { title: str(e && e.title), description: str(e && e.description) };
-  }).filter(function (e) { return e.title; });
-
-  var benefits = list(D.benefits).map(function (b) {
-    return typeof b === "string"
-      ? { title: str(b) }
-      : { title: str(b && b.title), description: str(b && b.description) };
-  }).filter(function (b) { return b.title; });
-
-  var testimonials = list(D.testimonials).filter(function (t) {
-    return t && str(t.quote);
-  });
-
-  var results = list(D.results).filter(function (r) {
-    return r && (str(r.metric) || str(r.description));
-  });
-
-  var socials = list(D.social_links).filter(function (s) {
-    return s && str(s.platform) && safeUrl(s.url);
-  });
-
+  var email = str(D.contact_email), endpoint = safeUrl(D.form_endpoint);
   var headline = str(D.hero_headline) || name;
-  var aboutText = str(D.about_description) || str(D.business_description);
-  var hasAbout = !!(aboutText || str(D.about_title));
-  var hasForm = !!(endpoint || email);
-  var hasContact = !!(email || socials.length || hasForm);
+  if (!name) { document.getElementById("app").innerHTML = '<main class="setup"><h1>Website not configured</h1></main>'; return; }
 
-  if (!name && !headline) {
-    document.getElementById("app").innerHTML =
-      '<main class="setup"><h1>Website not configured</h1><p class="lead">Add the business details to WEBSITE_DATA to publish the site.</p></main>';
-    return;
+  var offers = objs(D.offers, ["type", "title", "description", "price", "cta_text", "cta_link"]).filter(function (o) { return o.title; });
+  var expertise = objs(D.expertise, ["title", "description"]).filter(function (e) { return e.title; });
+  var benefits = objs(D.benefits, ["title", "description"]).filter(function (e) { return e.title; });
+  var tests = objs(D.testimonials, ["quote", "name", "role"]).filter(function (t) { return t.quote; });
+  var results = objs(D.results, ["metric", "label", "description"]).filter(function (r) { return r.metric || r.description; });
+  var socials = objs(D.social_links, ["platform", "url"]).filter(function (s) { return s.platform && safeUrl(s.url); });
+  var aboutText = str(D.about_description);
+  var hasAbout = !!aboutText, hasForm = !!(endpoint || email), hasContact = !!(email || socials.length || hasForm);
+
+  /* ---------- Design: palette, fonts, variants ---------- */
+  var P = DS.palette || {}, root = document.documentElement, rs = root.style;
+  var map = { primary: "--brand", accent: "--accent", background: "--bg", text: "--ink", surface: "--surface" };
+  Object.keys(map).forEach(function (k) { var c = hex(P[k]); if (c) rs.setProperty(map[k], c); });
+  if (hex(P.primary)) rs.setProperty("--on-brand", onColor(hex(P.primary)));
+
+  var FONTS = {
+    editorial: ["Playfair Display", "Inter", "Georgia,serif"], modern: ["Poppins", "Inter", "system-ui,sans-serif"],
+    classic: ["Merriweather", "Open Sans", "Georgia,serif"], techy: ["Space Grotesk", "IBM Plex Sans", "system-ui,sans-serif"],
+    rounded: ["Nunito", "Nunito", "system-ui,sans-serif"]
+  };
+  var f = FONTS[DS.font_pair] || FONTS.modern;
+  rs.setProperty("--head", '"' + f[0] + '",' + f[2]);
+  rs.setProperty("--body", '"' + f[1] + '",system-ui,sans-serif');
+  var fam = function (n) { return "family=" + n.replace(/ /g, "+") + ":wght@400;600;700"; };
+  var lk = document.createElement("link");
+  lk.rel = "stylesheet";
+  lk.href = "https://fonts.googleapis.com/css2?" + fam(f[0]) + (f[1] !== f[0] ? "&" + fam(f[1]) : "") + "&display=swap";
+  document.head.appendChild(lk);
+
+  var radius = { sharp: "2px", soft: "14px", pill: "26px" }[DS.corner_style] || "14px";
+  rs.setProperty("--r", radius);
+  rs.setProperty("--br", DS.corner_style === "pill" ? "999px" : radius);
+  var hero = ["split", "centered", "fullbleed", "stacked"].indexOf(DS.hero_layout) > -1 ? DS.hero_layout : "split";
+  var sec = ["cards", "lines", "tiles", "alternating"].indexOf(DS.section_style) > -1 ? DS.section_style : "cards";
+  root.setAttribute("data-hero", hero);
+  root.setAttribute("data-sec", sec);
+
+  /* ---------- Generated logo ---------- */
+  var LG = DS.logo || {};
+  var letters = (str(LG.letters) || name.split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("")).slice(0, 2).toUpperCase();
+  var SHAPES = {
+    circle: '<circle cx="32" cy="32" r="30"/>',
+    square: '<rect x="3" y="3" width="58" height="58" rx="' + (DS.corner_style === "sharp" ? 2 : 14) + '"/>',
+    hexagon: '<polygon points="32,2 60,17 60,47 32,62 4,47 4,17"/>',
+    shield: '<path d="M32 2L58 12V32C58 48 46 58 32 62 18 58 6 48 6 32V12Z"/>',
+    leaf: '<path d="M8 57C8 24 28 6 58 6 58 38 40 58 8 57Z"/>'
+  };
+  var shape = SHAPES[LG.shape] ? LG.shape : "circle", lstyle = ["monogram", "badge", "abstract", "wordmark"].indexOf(LG.style) > -1 ? LG.style : "monogram";
+  var fs = letters.length > 1 ? 24 : 30;
+  var txt = function (fill) {
+    return '<text x="32" y="' + (32 + fs * .35) + '" text-anchor="middle" font-family="' + f[0] + ',Georgia,serif" font-weight="700" font-size="' + fs + '" fill="' + fill + '">' + esc(letters) + "</text>";
+  };
+  function logo() {
+    var s = '<svg viewBox="0 0 64 64" aria-hidden="true">';
+    if (lstyle === "wordmark") s += txt("var(--brand)") + '<rect x="12" y="54" width="40" height="4" rx="2" fill="var(--accent)"/>';
+    else if (lstyle === "badge") s += '<g fill="var(--brand)">' + SHAPES[shape] + '</g><g fill="none" stroke="var(--on-brand)" stroke-width="1.5" opacity=".6" transform="translate(5.8 5.8) scale(.82)">' + SHAPES[shape] + "</g>" + txt("var(--on-brand)");
+    else if (lstyle === "abstract") s += '<g fill="var(--brand)">' + SHAPES[shape] + '</g><circle cx="42" cy="42" r="17" fill="var(--accent)" opacity=".92"/>' + txt("var(--on-brand)");
+    else s += '<g fill="var(--brand)">' + SHAPES[shape] + "</g>" + txt("var(--on-brand)") + '<circle cx="54" cy="10" r="5" fill="var(--accent)"/>';
+    return s + "</svg>";
   }
-
-  /* ---------- Apply brand colors ---------- */
-  var bc = D.brand_colors || {};
-  var root = document.documentElement.style;
-  var primary = hex(bc.primary);
-  var accent = hex(bc.accent);
-  var bg = hex(bc.background);
-  var ink = hex(bc.text);
-
-  if (primary) {
-    root.setProperty("--brand", primary);
-    root.setProperty("--on-brand", onColor(primary));
-  }
-  if (accent) root.setProperty("--accent", accent);
-  if (bg) root.setProperty("--bg", bg);
-  if (ink) root.setProperty("--ink", ink);
+  var visual = '<div class="vis">' + logo() + "</div>";
 
   /* ---------- SEO ---------- */
-  document.title = headline && name && headline !== name
-    ? name + " | " + headline
-    : (name || headline);
+  document.title = headline !== name ? name + " | " + headline : name;
+  var meta = str(D.hero_description);
+  if (meta) document.querySelector('meta[name="description"]').setAttribute("content", meta.slice(0, 160));
+  var ld = document.createElement("script"); ld.type = "application/ld+json";
+  ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: name, description: meta || undefined });
+  document.head.appendChild(ld);
 
-  var metaDesc = str(D.hero_description) || str(D.business_description);
+  /* ---------- Parts ---------- */
+  var la = function (u) { return 'href="' + esc(u) + '"' + (ext(u) ? ' target="_blank" rel="noopener noreferrer"' : ""); };
+  var btn = function (t, l, c) { return t && l ? '<a class="btn ' + (c || "") + '" ' + la(l) + ">" + esc(t) + "</a>" : ""; };
+  var ctaText = str(D.primary_cta_text), ctaLink = safeUrl(D.primary_cta_link) || (ctaText && hasContact ? "#contact" : "");
+  var secText = str(D.secondary_cta_text), secLink = safeUrl(D.secondary_cta_link);
+  if (!secText && offers.length) { secText = "View offers"; secLink = "#offers"; }
 
-  if (metaDesc) {
-    document.querySelector('meta[name="description"]').setAttribute("content", metaDesc.slice(0, 160));
-  }
+  var nav = [["home", "Home"]];
+  if (hasAbout) nav.push(["about", "About"]);
+  if (expertise.length) nav.push(["expertise", "Expertise"]);
+  if (offers.length) nav.push(["offers", "Offers"]);
+  if (hasContact) nav.push(["contact", "Contact"]);
+  var navLinks = nav.map(function (n) { return '<li><a href="#' + n[0] + '">' + n[1] + "</a></li>"; }).join("");
 
-  var ld = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: name
-  };
+  var head = function (t, k) { return '<div class="head"><h2>' + esc(title(k, t)) + "</h2></div>"; };
+  var items = function (arr, fn) { return '<div class="grid">' + arr.map(function (x) { return '<article class="item">' + fn(x) + "</article>"; }).join("") + "</div>"; };
+  var pd = function (t) { return t ? "<p>" + esc(t) + "</p>" : ""; };
 
-  if (metaDesc) ld.description = metaDesc;
-  if (creator) ld.founder = { "@type": "Person", name: creator };
-  if (socials.length) {
-    ld.sameAs = socials.map(function (s) {
-      return safeUrl(s.url);
-    }).filter(isExternal);
-  }
+  var html =
+    '<header class="site"><div class="wrap bar"><a class="logo" href="#home">' + logo() + "<span>" + esc(name) + "</span></a>" +
+    '<nav id="nav" aria-label="Main"><ul>' + navLinks + "</ul></nav>" + btn(ctaText, ctaLink) +
+    '<button class="menu" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button></div></header><main>' +
+    '<section class="hero" id="home"><div class="wrap hero-in"><div><h1>' + esc(headline) + "</h1>" +
+    (meta ? '<p class="lead">' + esc(meta) + "</p>" : "") + '<div class="cta">' + btn(ctaText, ctaLink) + btn(secText, secLink, "ghost") + "</div></div>" + visual + "</div></section>" +
 
-  var ldEl = document.createElement("script");
-  ldEl.type = "application/ld+json";
-  ldEl.textContent = JSON.stringify(ld);
-  document.head.appendChild(ldEl);
+    (hasAbout ? '<section id="about"><div class="wrap about"><h2>' + esc(str(D.about_title) || "About") + '</h2><div>' + paras(aboutText) +
+      (str(D.target_audience) ? '<p class="aud">Who this is for: ' + esc(D.target_audience) + "</p>" : "") + "</div></div></section>" : "") +
 
-  /* ---------- Navigation ---------- */
-  var nav = [{ id: "home", label: "Home" }];
+    (expertise.length ? '<section id="expertise"><div class="wrap">' + head("Expertise", "expertise") + items(expertise, function (e) { return "<h3>" + esc(e.title) + "</h3>" + pd(e.description); }) + "</div></section>" : "") +
 
-  if (hasAbout || expertise.length) {
-    nav.push({ id: hasAbout ? "about" : "expertise", label: "About" });
-  }
+    (offers.length ? '<section id="offers"><div class="wrap">' + head("Offers", "offers") + items(offers, function (o) {
+      var l = safeUrl(o.cta_link) || (hasContact ? "#contact" : "");
+      return (o.type ? '<span class="type">' + esc(o.type) + "</span>" : "") + "<h3>" + esc(o.title) + "</h3>" + pd(o.description) +
+        (o.price ? '<div class="price">' + esc(o.price) + "</div>" : "") + btn(o.cta_text || "Learn more", l);
+    }) + "</div></section>" : "") +
 
-  if (offers.length) nav.push({ id: "offers", label: "Offers" });
-  if (hasContact) nav.push({ id: "contact", label: "Contact" });
+    (benefits.length ? '<section class="band" id="benefits"><div class="wrap">' + head("Why choose us", "benefits") + items(benefits, function (b) { return "<h3>" + esc(b.title) + "</h3>" + pd(b.description); }) + "</div></section>" : "") +
 
-  var ctaText = str(D.primary_cta_text);
-  var ctaLink = safeUrl(D.primary_cta_link);
+    (tests.length ? '<section id="testimonials"><div class="wrap">' + head("Testimonials", "testimonials") + '<div class="grid">' + tests.map(function (t) {
+      return "<blockquote><p>“" + esc(t.quote) + "”</p>" + (t.name ? "<footer><strong>" + esc(t.name) + "</strong>" + (t.role ? ", " + esc(t.role) : "") + "</footer>" : "") + "</blockquote>";
+    }).join("") + "</div></div></section>" : "") +
 
-  if (ctaText && !ctaLink && hasContact) ctaLink = "#contact";
+    (results.length ? '<section id="results"><div class="wrap">' + head("Results", "results") + items(results, function (r) {
+      return (r.metric ? '<div class="metric">' + esc(r.metric) + "</div>" : "") + (r.label ? "<h3>" + esc(r.label) + "</h3>" : "") + pd(r.description);
+    }) + "</div></section>" : "");
 
-  var linkAttrs = function (u) {
-    return 'href="' + esc(u) + '"' +
-      (isExternal(u) ? ' target="_blank" rel="noopener noreferrer"' : "");
-  };
+  var info = (email || socials.length) ? '<div class="info">' + (email ? '<p class="lead">Email <a href="mailto:' + esc(email) + '">' + esc(email) + "</a></p>" : "") +
+    (socials.length ? "<ul>" + socials.map(function (s) { return "<li><a " + la(safeUrl(s.url)) + ">" + esc(s.platform) + "</a></li>"; }).join("") + "</ul>" : "") + "</div>" : "";
+  var form = hasForm ? '<form id="leadForm" novalidate><label>Name<input name="name" autocomplete="name"></label><label>Email<input name="email" type="email" autocomplete="email"></label>' +
+    '<label>Message<textarea name="message"></textarea></label><div class="hp" aria-hidden="true"><input name="company_website" tabindex="-1" autocomplete="off"></div>' +
+    '<button class="btn" type="submit">' + (endpoint ? "Send message" : "Open email draft") + '</button><div class="status" id="st" role="status" aria-live="polite"></div>' +
+    (endpoint ? "" : '<p class="note">This opens your email app with the message filled in.</p>') + "</form>" : "";
+  html += (hasContact ? '<section class="contact-sec" id="contact"><div class="wrap contact' + (info && form ? " two" : "") + '"><div><h2>' + esc(title("contact", "Get in touch")) + "</h2>" + info + "</div>" + (form ? "<div>" + form + "</div>" : "") + "</div></section>" : "") +
+    '</main><footer class="site"><div class="wrap foot"><div><strong>' + esc(name) + "</strong><div>© " + new Date().getFullYear() + " " + esc(name) + "</div></div><ul>" + navLinks + "</ul></div></footer>";
 
-  var btn = function (text, link, cls) {
-    return text && link
-      ? '<a class="btn ' + (cls || "") + '" ' + linkAttrs(link) + ">" + esc(text) + "</a>"
-      : "";
-  };
+  document.getElementById("app").innerHTML = html;
 
-  /* ---------- Header ---------- */
-  var navLinks = nav.map(function (n) {
-    return '<li><a href="#' + n.id + '">' + esc(n.label) + "</a></li>";
-  }).join("");
+  /* ---------- Behaviour ---------- */
+  var mb = document.getElementById("menuBtn"), nv = document.getElementById("nav");
+  var setMenu = function (o) { nv.classList.toggle("open", o); mb.setAttribute("aria-expanded", String(o)); mb.textContent = o ? "Close" : "Menu"; };
+  mb.addEventListener("click", function () { setMenu(!nv.classList.contains("open")); });
+  nv.addEventListener("click", function (e) { if (e.target.tagName === "A") setMenu(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
 
-  var mark =
-    '<svg class="mark" viewBox="0 0 32 32" aria-hidden="true">' +
-    '<rect width="32" height="32" rx="9" fill="var(--brand)"/>' +
-    '<circle cx="25" cy="7" r="3" fill="var(--accent)"/>' +
-    '<text x="15" y="23" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="600" fill="var(--on-brand)">' +
-    esc(name.charAt(0).toUpperCase()) +
-    "</text></svg>";
-
-  var header =
-    '<header class="site"><div class="wrap bar">' +
-    '<a class="logo" href="#home">' + mark + "<span>" + esc(name) + "</span></a>" +
-    '<nav class="main" id="nav" aria-label="Main"><ul>' + navLinks + "</ul></nav>" +
-    btn(ctaText, ctaLink) +
-    '<button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>' +
-    "</div></header>";
-
-  /* ---------- Hero ---------- */
-  var initials = creator.split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) {
-    return w[0].toUpperCase();
-  }).join("");
-
-  var visual = initials
-    ? '<div class="portrait" aria-hidden="true">' +
-      '<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">' +
-      '<circle cx="330" cy="120" r="70" fill="var(--accent)" opacity=".9"/>' +
-      '<circle cx="70" cy="430" r="120" fill="var(--on-brand)" opacity=".08"/>' +
-      '<path d="M0 380 Q200 300 400 380 V500 H0Z" fill="var(--on-brand)" opacity=".06"/>' +
-      "</svg><div class=\"mono\">" + esc(initials) + "</div></div>"
-    : "";
-
-  var secText = str(D.secondary_cta_text);
-  var secLink = safeUrl(D.secondary_cta_link);
-
-  if (!secText && offers.length) {
-    secText = "View offers";
-    secLink = "#offers";
-  }
-
-  var hero =
-    '<section class="hero" id="home"><div class="wrap hero-grid"><div>' +
-    "<h1>" + esc(headline) + "</h1>" +
-    (str(D.hero_description) ? '<p class="lead">' + esc(D.hero_description) + "</p>" : "") +
-    '<div class="cta-row">' + btn(ctaText, ctaLink) + btn(secText, secLink, "ghost") + "</div></div>" +
-    visual + "</div></section>";
-
-  /* ---------- About ---------- */
-  var about = hasAbout
-    ? '<section class="about" id="about"><div class="wrap about-grid">' +
-      "<div><h2>" + esc(str(D.about_title) || title("about", creator ? "About " + creator : "About")) + "</h2></div>" +
-      '<div class="prose">' + paras(aboutText) +
-      (str(D.target_audience) ? '<p class="audience">Who this is for: ' + esc(D.target_audience) + "</p>" : "") +
-      "</div></div></section>"
-    : "";
-
-  /* ---------- Expertise ---------- */
-  var expSec = expertise.length
-    ? '<section id="expertise"><div class="wrap"><div class="sec-head"><h2>' +
-      esc(title("expertise", "Areas of expertise")) +
-      '</h2></div><div class="exp-grid">' +
-      expertise.map(function (e) {
-        return '<div class="exp"><h3>' + esc(e.title) + "</h3>" +
-          (e.description ? "<p>" + esc(e.description) + "</p>" : "") +
-          "</div>";
-      }).join("") +
-      "</div></div></section>"
-    : "";
-
-  /* ---------- Offers ---------- */
-  var offerSec = offers.length
-    ? '<section id="offers"><div class="wrap"><div class="sec-head"><h2>' +
-      esc(title("offers", "Ways to work together")) +
-      '</h2></div><div class="offer-grid">' +
-      offers.map(function (o) {
-        var link = safeUrl(o.cta_link) || (hasContact ? "#contact" : "");
-        return '<article class="offer">' +
-          (str(o.type) ? '<span class="type">' + esc(o.type) + "</span>" : "") +
-          "<h3>" + esc(o.title) + "</h3>" +
-          (str(o.description) ? "<p>" + esc(o.description) + "</p>" : "") +
-          (str(o.price) ? '<div class="price">' + esc(o.price) + "</div>" : "") +
-          btn(str(o.cta_text) || "Learn more", link) +
-          "</article>";
-      }).join("") +
-      "</div></div></section>"
-    : "";
-
-  /* ---------- Benefits ---------- */
-  var check =
-    '<svg viewBox="0 0 28 28" fill="none" aria-hidden="true">' +
-    '<circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5"/>' +
-    '<path d="M8.5 14.5l3.5 3.5 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
-    "</svg>";
-
-  var benSec = benefits.length
-    ? '<section class="benefits" id="benefits"><div class="wrap"><div class="sec-head"><h2>' +
-      esc(title("benefits", "What you’ll gain")) +
-      '</h2></div><ul class="ben-list">' +
-      benefits.map(function (b) {
-        return "<li>" + check + "<div><h3>" + esc(b.title) + "</h3>" +
-          (b.description ? "<p>" + esc(b.description) + "</p>" : "") +
-          "</div></li>";
-      }).join("") +
-      "</ul></div></section>"
-    : "";
-
-  /* ---------- Testimonials ---------- */
-  var testSec = testimonials.length
-    ? '<section id="testimonials"><div class="wrap"><div class="sec-head"><h2>' +
-      esc(title("testimonials", "Client feedback")) +
-      '</h2></div><div class="quote-grid">' +
-      testimonials.map(function (t) {
-        var who = [
-          str(t.name) ? "<strong>" + esc(t.name) + "</strong>" : "",
-          esc(str(t.role))
-        ].filter(Boolean).join(", ");
-
-        return "<blockquote><p>“" + esc(t.quote) + "”</p>" +
-          (who ? "<footer>" + who + "</footer>" : "") +
-          "</blockquote>";
-      }).join("") +
-      "</div></div></section>"
-    : "";
-
-  /* ---------- Results ---------- */
-  var resSec = results.length
-    ? '<section id="results"><div class="wrap"><div class="sec-head"><h2>' +
-      esc(title("results", "Results")) +
-      '</h2></div><div class="res-grid">' +
-      results.map(function (r) {
-        return '<div class="res">' +
-          (str(r.metric) ? '<div class="metric">' + esc(r.metric) + "</div>" : "") +
-          (str(r.label) ? '<div class="label">' + esc(r.label) + "</div>" : "") +
-          (str(r.description) ? "<p>" + esc(r.description) + "</p>" : "") +
-          "</div>";
-      }).join("") +
-      "</div></div></section>"
-    : "";
-
-  /* ---------- Contact ---------- */
-  var infoBlock = (email || socials.length)
-    ? '<div class="info">' +
-      (email ? '<p class="lead">Email <a href="mailto:' + esc(email) + '">' + esc(email) + "</a></p>" : "") +
-      (socials.length
-        ? "<ul>" + socials.map(function (s) {
-            var u = safeUrl(s.url);
-            return "<li><a " + linkAttrs(u) + ">" + esc(s.platform) + "</a></li>";
-          }).join("") + "</ul>"
-        : "") +
-      "</div>"
-    : "";
-
-  var formBlock = hasForm
-    ? '<form id="leadForm" novalidate>' +
-      '<label>Name<input name="name" autocomplete="name" required></label>' +
-      '<label>Email<input name="email" type="email" autocomplete="email" required></label>' +
-      '<label>Message<textarea name="message" required></textarea></label>' +  '<div class="hp" aria-hidden="true"><label>Leave blank<input name="company_website" tabindex="-1" autocomplete="off"></label></div>' +
-  '<button class="btn" type="submit">' + (endpoint ? "Send message" : "Open email draft") + "</button>" +
-  '<div class="status" id="formStatus" role="status" aria-live="polite"></div>' +
-  (endpoint ? "" : '<p class="note">This opens your email app with the message filled in. Nothing is sent until you send it.</p>') +
-  "</form>"
-: "";
-
-var contactSec = hasContact
-? '<section class="contact" id="contact"><div class="wrap contact-grid ' +
-(infoBlock && formBlock ? "two" : "") +
-'"><div><h2>' +
-esc(title("contact", hasForm ? "Start a conversation" : "Get in touch")) +
-"</h2>" + infoBlock + "</div>" +
-(formBlock ? "<div>" + formBlock + "</div>" : "") +
-"</div></section>"
-: "";
-
-/* ---------- Footer ---------- */
-var footer =
-'<footer class="site"><div class="wrap foot"><div><div class="name logo">' +
-mark + "<span>" + esc(name) + "</span></div>" +
-"<div>© " + new Date().getFullYear() + " " + esc(name) + ". All rights reserved.</div></div>" +
-'<ul aria-label="Footer">' + navLinks + "</ul>" +
-(socials.length
-? '<ul aria-label="Social media">' +
-socials.map(function (s) {
-return "<li><a " + linkAttrs(safeUrl(s.url)) + ">" + esc(s.platform) + "</a></li>";
-}).join("") +
-"</ul>"
-: "") +
-"</div></footer>";
-
-/* ---------- Render ---------- */
-document.getElementById("app").innerHTML =
-header + '<main id="main">' +
-hero + about + expSec + offerSec + benSec + testSec + resSec + contactSec +
-"</main>" + footer;
-
-/* ---------- Mobile menu ---------- */
-var menuBtn = document.getElementById("menuBtn");
-var navEl = document.getElementById("nav");
-
-function setMenu(open) {
-navEl.classList.toggle("open", open);
-menuBtn.setAttribute("aria-expanded", String(open));
-menuBtn.textContent = open ? "Close" : "Menu";
-}
-
-menuBtn.addEventListener("click", function () {
-setMenu(!navEl.classList.contains("open"));
-});
-
-navEl.addEventListener("click", function (e) {
-if (e.target.tagName === "A") setMenu(false);
-});
-
-document.addEventListener("keydown", function (e) {
-if (e.key === "Escape") setMenu(false);
-});
-
-/* ---------- Lead form ---------- */
-var form = document.getElementById("leadForm");
-
-if (form) {
-var status = document.getElementById("formStatus");
-
-var say = function (msg, cls) {
-  status.textContent = msg;
-  status.className = "status " + (cls || "");
-};
-
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  var f = form.elements;
-
-  if (f.company_website.value) return;
-
-  if (
-    !f.name.value.trim() ||
-    !/^\S+@\S+\.\S+$/.test(f.email.value.trim()) ||
-    !f.message.value.trim()
-  ) {
-    say("Please enter your name, a valid email address and a message.", "err");
-    return;
-  }
-
-  var payload = {
-    name: f.name.value.trim(),
-    email: f.email.value.trim(),
-    message: f.message.value.trim()
-  };
-
-  if (!endpoint) {
-    location.href = "mailto:" + encodeURIComponent(email).replace(/%40/g, "@") +
-      "?subject=" + encodeURIComponent("Message from " + payload.name) +
-      "&body=" + encodeURIComponent(
-        payload.message + "\n\n" + payload.name + " (" + payload.email + ")"
-      );
-
-    say("Your email app should open with the message ready to send.", "ok");
-    return;
-  }
-
-  var submit = form.querySelector("button");
-  submit.disabled = true;
-  say("Sending…");
-
-  fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify(payload)
-  })
-  .then(function (r) {
-    if (!r.ok) throw new Error(r.status);
-    form.reset();
-    say("Thank you. Your message has been sent.", "ok");
-  })
-  .catch(function () {
-    say(
-      "Your message could not be sent." +
-      (email ? " Please email " + email + " directly." : " Please try again later."),
-      "err"
-    );
-  })
-  .then(function () {
-    submit.disabled = false;
+  var fm = document.getElementById("leadForm");
+  if (fm) fm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var el = fm.elements, st = document.getElementById("st");
+    var say = function (m, c) { st.textContent = m; st.className = "status " + (c || ""); };
+    if (el.company_website.value) return;
+    var p = { name: el.name.value.trim(), email: el.email.value.trim(), message: el.message.value.trim() };
+    if (!p.name || !/^\S+@\S+\.\S+$/.test(p.email) || !p.message) return say("Please enter your name, a valid email and a message.", "err");
+    if (!endpoint) {
+      location.href = "mailto:" + email + "?subject=" + encodeURIComponent("Message from " + p.name) + "&body=" + encodeURIComponent(p.message + "\n\n" + p.name + " (" + p.email + ")");
+      return say("Your email app should open with the message ready.", "ok");
+    }
+    var sb = fm.querySelector("button"); sb.disabled = true; say("Sending…");
+    fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(p) })
+      .then(function (r) { if (!r.ok) throw 0; fm.reset(); say("Thank you. Your message has been sent.", "ok"); })
+      .catch(function () { say("Your message could not be sent." + (email ? " Please email " + email + "." : ""), "err"); })
+      .then(function () { sb.disabled = false; });
   });
-});
-
-}
 })();
-</script>
-
-</body>
-</html>
+</script></body></html>
