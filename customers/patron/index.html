@@ -1,0 +1,303 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Website</title><meta name="description" content="">
+<style>
+:root{--bg:#fff;--ink:#1a1a1a;--brand:#1a1a1a;--on-brand:#fff;--accent:#0f766e;--surface:color-mix(in srgb,var(--ink) 5%,var(--bg));--muted:color-mix(in srgb,var(--ink) 68%,var(--bg));--line:color-mix(in srgb,var(--ink) 16%,var(--bg));--r:12px;--br:var(--r);--head:Georgia,serif;--body:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.65 var(--body)}
+a{color:inherit}h1,h2,h3{font-family:var(--head);margin:0;line-height:1.15}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header.site{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.logo{display:inline-flex;align-items:center;gap:10px;font:700 1.2rem var(--head);text-decoration:none}
+.logo svg{width:40px;height:40px;flex:none}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:26px}
+nav a{text-decoration:none;color:var(--muted);font-size:.95rem}nav a:hover{color:var(--ink)}
+.menu{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;font:inherit;color:var(--ink)}
+@media(max-width:819px){.menu{display:block}nav{position:absolute;left:0;right:0;top:66px;background:var(--bg);border-bottom:1px solid var(--line);display:none;padding:8px 20px 16px}nav.open{display:block}nav ul{flex-direction:column;gap:0}nav li a{display:block;padding:13px 0;border-bottom:1px solid var(--line)}.bar>.btn{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 24px;border-radius:var(--br);background:var(--brand);color:var(--on-brand);border:2px solid var(--brand);font:600 .95rem var(--body);text-decoration:none;cursor:pointer}
+.btn:hover{opacity:.88}.btn.ghost{background:transparent;color:var(--brand)}.btn[disabled]{opacity:.6}
+.inv .btn,[data-hero=fullbleed] .hero .btn,[data-sec=tiles] .item .btn{background:var(--on-brand);color:var(--brand);border-color:var(--on-brand)}
+.inv .btn.ghost,[data-hero=fullbleed] .hero .btn.ghost,[data-sec=tiles] .item .btn.ghost{background:transparent;color:var(--on-brand)}
+section{padding:76px 0}@media(max-width:700px){section{padding:56px 0}}
+h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin-bottom:12px}h3{font-size:1.2rem}
+.lead{color:var(--muted);font-size:1.1rem;max-width:60ch}.head{margin-bottom:36px}
+/* hero */
+.hero{padding:64px 0 84px}.hero-in{display:grid;gap:40px;align-items:center}
+h1{font-size:clamp(2.3rem,5.8vw,4.2rem);letter-spacing:-.02em}.hero .lead{margin:20px 0 30px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}.hero-in>div{max-width:820px}
+[data-hero=centered] .hero-in{text-align:center;justify-items:center}[data-hero=centered] .lead{margin-inline:auto}[data-hero=centered] .cta{justify-content:center}[data-hero=centered] .hero{padding:90px 0}
+[data-hero=fullbleed] .hero{background:var(--brand);color:var(--on-brand);padding:110px 0}[data-hero=fullbleed] .hero .lead{color:inherit;opacity:.85}
+[data-hero=stacked] .hero{background:var(--surface);border-top:12px solid var(--brand);border-bottom:1px solid var(--line)}
+[data-hero=reverse] .hero-in>div{margin-left:auto;text-align:right}[data-hero=reverse] .lead{margin-left:auto}[data-hero=reverse] .cta{justify-content:flex-end}
+[data-hero=banner] .hero{border-bottom:10px solid var(--accent);padding:90px 0}
+[data-hero=banner] h1{font-size:clamp(2.6rem,8vw,5.6rem);text-transform:uppercase;letter-spacing:-.03em}
+/* items */
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.item{padding:26px;display:flex;flex-direction:column;gap:10px}.item p{margin:0;color:var(--muted)}.item .type{color:var(--accent);font-weight:600;font-size:.9rem}.price{font:700 1.15rem var(--head)}.item .btn{align-self:flex-start;margin-top:auto}
+[data-sec=cards] .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+[data-sec=lines] .item{border-top:3px solid var(--accent);padding-inline:0}
+[data-sec=tiles] .item{background:var(--brand);color:var(--on-brand);border-radius:var(--r)}[data-sec=tiles] .item p{color:inherit;opacity:.82}
+[data-sec=alternating] .item{border-left:4px solid var(--accent);padding-left:20px}[data-sec=alternating] main section:nth-of-type(even){background:var(--surface)}
+[data-sec=outline] .item{border:2px solid var(--accent);border-radius:var(--r);background:transparent}
+[data-sec=soft] .item{background:var(--bg);border-radius:var(--r);box-shadow:0 10px 30px color-mix(in srgb,var(--ink) 12%,transparent)}
+.about{display:grid;gap:28px}@media(min-width:860px){.about{grid-template-columns:.8fr 1.2fr;gap:64px}}
+.about p{margin:0 0 1em;max-width:66ch}.aud{border-left:3px solid var(--accent);padding-left:14px;color:var(--muted)}
+.band{background:var(--brand);color:var(--on-brand)}.band .lead,.band .item p{color:inherit;opacity:.85}
+.band .item{background:transparent!important;border:0!important;box-shadow:none!important;color:inherit;padding-inline:0}
+blockquote{margin:0;padding:26px;background:var(--surface);border-radius:var(--r)}blockquote p{margin:0 0 14px;font:1.1rem/1.6 var(--head)}blockquote footer{color:var(--muted);font-size:.92rem}
+.metric{font:700 clamp(2rem,4vw,2.8rem)/1.1 var(--head);color:var(--accent)}
+/* contact + form */
+.contact{display:grid;gap:36px}@media(min-width:860px){.contact{grid-template-columns:.85fr 1.15fr;gap:64px}}
+.info a{font-weight:600}.info{margin-top:18px}.info ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
+form{display:grid;gap:16px}label{display:grid;gap:6px;font-weight:600;font-size:.95rem}label i{font-style:normal;color:var(--accent)}
+input,textarea{font:inherit;padding:13px 14px;border:1px solid color-mix(in srgb,var(--ink) 40%,var(--bg));border-radius:min(var(--r),14px);background:var(--bg);color:var(--ink);width:100%}textarea{min-height:140px;resize:vertical}
+input[aria-invalid=true],textarea[aria-invalid=true]{border-color:#b42318!important}
+.hp{position:absolute;left:-9999px}.status{min-height:1.4em;font-weight:600}.ok{color:#166534}.err{color:#b42318}.note{font-size:.88rem;color:var(--muted);margin:0}
+form .btn{width:100%}@media(min-width:520px){form .btn{width:auto;justify-self:start}}
+[data-form=underline] input,[data-form=underline] textarea{border:0;border-bottom:2px solid color-mix(in srgb,var(--ink) 40%,var(--bg));border-radius:0;background:transparent;padding-inline:2px}
+[data-form=underline] input:focus,[data-form=underline] textarea:focus{border-bottom-color:var(--accent);outline:none}
+[data-form=filled] input,[data-form=filled] textarea{border:2px solid transparent;background:var(--surface)}
+[data-form=filled] input:focus,[data-form=filled] textarea:focus{border-color:var(--accent);outline:none}
+[data-form=card] form{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:0 14px 40px color-mix(in srgb,var(--ink) 12%,transparent)}
+[data-form=panel] form{background:var(--brand);color:var(--on-brand);border-radius:var(--r);padding:28px}
+[data-form=panel] input,[data-form=panel] textarea{background:var(--bg);color:var(--ink);border-color:transparent}
+[data-form=panel] label i{color:inherit}[data-form=panel] .btn{background:var(--on-brand);color:var(--brand);border-color:var(--on-brand)}
+[data-form=panel] .status.ok,[data-form=panel] .status.err{color:inherit}
+[data-form=outline] input,[data-form=outline] textarea{border:2px solid var(--accent);background:transparent}
+[data-form=outline] input:focus,[data-form=outline] textarea:focus{outline-offset:2px}
+footer.site{border-top:1px solid var(--line);padding:36px 0;color:var(--muted);font-size:.92rem}.foot{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between}.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 18px}.foot a{text-decoration:none}
+.setup{max-width:600px;margin:15vh auto;padding:0 20px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style><script
+  src="https://reportliai-sbs.reportliaihq.workers.dev/reportli.js"
+  api_key="rep_live_nBvbbSwngd0tqMilphFhe0000000"
+  async
+></script>
+</head><body><div id="app"></div>
+<noscript><p style="padding:24px">This website needs JavaScript enabled.</p></noscript>
+<script>
+const WEBSITE_DATA = {"business_name":"Patron","hero_headline":"Elevate Your Brand with Strategic Creativity","hero_description":"Patron delivers high-impact creative solutions that drive growth and resonate with your audience.","primary_cta_text":"Get Started","primary_cta_link":"#contact","secondary_cta_text":"","secondary_cta_link":"","about_title":"Who We Are","about_description":"Patron is a creative agency dedicated to crafting high-impact solutions for brands seeking to stand out in a crowded market.\n\nOur team combines strategic thinking with bold creative execution to deliver results that matter.\n\nWe believe in pushing boundaries and creating experiences that leave a lasting impression.","target_audience":"Brands seeking impactful creative solutions to differentiate themselves and drive growth.","expertise":[{"title":"Brand Strategy","description":"Developing comprehensive brand frameworks that align with business goals and audience expectations."},{"title":"Visual Identity","description":"Crafting distinctive visual systems including logos, color palettes, and typography to build recognition."},{"title":"Digital Campaigns","description":"Designing and executing multi-channel digital campaigns that engage and convert audiences."}],"offers":[{"type":"Service","title":"Brand Strategy","description":"Developing comprehensive brand frameworks that align with business goals and audience expectations.","price":"","cta_text":"Learn More","cta_link":"#"},{"type":"Service","title":"Visual Identity","description":"Crafting distinctive visual systems including logos, color palettes, and typography to build recognition.","price":"","cta_text":"Learn More","cta_link":"#"},{"type":"Service","title":"Digital Campaigns","description":"Designing and executing multi-channel digital campaigns that engage and convert audiences.","price":"","cta_text":"Learn More","cta_link":"#"}],"benefits":[{"title":"Strategic Creativity","description":"Every solution is rooted in sharp strategy, ensuring your brand cuts through the noise."},{"title":"Bold Execution","description":"We deliver high-impact creative work with precision and fearless energy."},{"title":"Lasting Impact","description":"Our campaigns and identities create memorable experiences that resonate long after launch."}],"testimonials":[],"results":[],"contact_email":"","application_id":"app_a8d4ja90","form_endpoint":"https://reportli-form-worker.reportliaihq.workers.dev/submit","contact_description":"Tell us what you're building and we'll craft a tailored approach to help your brand shine.","form_labels":{"name":"Name","email":"Email","message":"Message"},"form_button_text":"Send Message","form_success_message":"Thanks for reaching out. We'll be in touch soon.","social_links":[],"section_titles":{"expertise":"Expertise","offers":"Services","benefits":"Why Choose Us","testimonials":"Testimonials","results":"Our Results","contact":"Contact"},"design":{"palette":{"primary":"#ff2e63","accent":"#05ce95","background":"#0b0b0b","text":"#f0f0f0","surface":"#1a1a1a"},"font_pair":"techy","corner_style":"sharp","hero_layout":"banner","section_style":"tiles","form_style":"panel","logo":{"svg":"\u003csvg viewBox=\"0 0 64 64\" aria-hidden=\"true\"\u003e\u003cg fill=\"var(--brand)\" fill-opacity=\"0.9\"\u003e\u003ccircle cx=\"32\" cy=\"16\" r=\"6\"/\u003e\u003cellipse cx=\"32\" cy=\"48\" rx=\"20\" ry=\"8\"/\u003e\u003crect x=\"8\" y=\"16\" width=\"48\" height=\"16\" stroke=\"var(--on-brand)\" stroke-width=\"2\"/\u003e\u003c/g\u003e\u003c/svg\u003e","letters":"P","shape":"shield","style":"badge"}}};
+
+(function () {
+  "use strict";
+  var FORM_URL = "https://reportli-form-worker.reportliaihq.workers.dev/submit";
+  var D = (typeof WEBSITE_DATA === "object" && WEBSITE_DATA) || {};
+  var DS = D.design || {};
+  var str = function (v) { return typeof v === "string" ? v.trim() : ""; };
+  var list = function (v) { return Array.isArray(v) ? v : []; };
+  var esc = function (v) {
+    return String(v == null ? "" : v).replace(/[&<>"'`]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;", "`": "&#96;" }[c];
+    });
+  };
+  var safeUrl = function (u) { u = str(u); return /^(https?:|mailto:|tel:|#|\/(?!\/))/i.test(u) ? u : ""; };
+  var ext = function (u) { return /^https?:/i.test(u); };
+  var hex = function (v) { v = str(v); return /^#[0-9a-f]{6}$/i.test(v) ? v : ""; };
+  var lum = function (h) {
+    var c = [1, 3, 5].map(function (i) { var x = parseInt(h.substr(i, 2), 16) / 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); });
+    return .2126 * c[0] + .7152 * c[1] + .0722 * c[2];
+  };
+  var onColor = function (h) { return lum(h) > .4 ? "#10151F" : "#FFFFFF"; };
+  var title = function (k, f) { return str((D.section_titles || {})[k]) || f; };
+  var paras = function (t) { return str(t).split(/\n{2,}/).filter(Boolean).map(function (p) { return "<p>" + esc(p) + "</p>"; }).join(""); };
+  var objs = function (v, keys) {
+    return list(v).map(function (i) { return typeof i === "string" ? { title: i } : i; })
+      .filter(function (i) { return i && typeof i === "object"; })
+      .map(function (i) { var o = {}; keys.forEach(function (k) { o[k] = str(i[k]); }); return o; });
+  };
+
+  var name = str(D.business_name) || str(D.creator_name);
+  var email = str(D.contact_email);
+  var endpoint = /^https:\/\//i.test(str(D.form_endpoint)) ? str(D.form_endpoint) : FORM_URL;
+  var appId = str(D.application_id);
+  var headline = str(D.hero_headline) || name;
+  if (!name) { document.getElementById("app").innerHTML = '<main class="setup"><h1>Website not configured</h1></main>'; return; }
+
+  var offers = objs(D.offers, ["type", "title", "description", "price", "cta_text", "cta_link"]).filter(function (o) { return o.title; });
+  var expertise = objs(D.expertise, ["title", "description"]).filter(function (e) { return e.title; });
+  var benefits = objs(D.benefits, ["title", "description"]).filter(function (e) { return e.title; });
+  var tests = objs(D.testimonials, ["quote", "name", "role"]).filter(function (t) { return t.quote; });
+  var results = objs(D.results, ["metric", "label", "description"]).filter(function (r) { return r.metric || r.description; });
+  var socials = objs(D.social_links, ["platform", "url"]).filter(function (s) { return s.platform && safeUrl(s.url); });
+  var aboutText = str(D.about_description);
+  var hasAbout = !!aboutText;
+
+  /* ---------- Design: palette, fonts, variants ---------- */
+  var P = DS.palette || {}, root = document.documentElement, rs = root.style;
+  var map = { primary: "--brand", accent: "--accent", background: "--bg", text: "--ink", surface: "--surface" };
+  Object.keys(map).forEach(function (k) { var c = hex(P[k]); if (c) rs.setProperty(map[k], c); });
+  if (hex(P.primary)) rs.setProperty("--on-brand", onColor(hex(P.primary)));
+
+  var FONTS = {
+    editorial: ["Playfair Display", "Inter", "Georgia,serif"],
+    modern: ["Poppins", "Inter", "system-ui,sans-serif"],
+    classic: ["Merriweather", "Open Sans", "Georgia,serif"],
+    techy: ["Space Grotesk", "IBM Plex Sans", "system-ui,sans-serif"],
+    rounded: ["Nunito", "Nunito", "system-ui,sans-serif"],
+    elegant: ["Cormorant Garamond", "Montserrat", "Georgia,serif"],
+    bold: ["Oswald", "Work Sans", "Impact,sans-serif"],
+    geometric: ["Outfit", "DM Sans", "system-ui,sans-serif"],
+    humanist: ["Fraunces", "Manrope", "Georgia,serif"],
+    friendly: ["Rubik", "Rubik", "system-ui,sans-serif"],
+    creative: ["Syne", "Manrope", "system-ui,sans-serif"],
+    warm: ["Bitter", "Raleway", "Georgia,serif"],
+    crisp: ["Sora", "Inter", "system-ui,sans-serif"]
+  };
+  var f = FONTS[DS.font_pair] || FONTS.modern;
+  rs.setProperty("--head", '"' + f[0] + '",' + f[2]);
+  rs.setProperty("--body", '"' + f[1] + '",system-ui,sans-serif');
+  var fam = function (n) { return "family=" + n.replace(/ /g, "+") + ":wght@400;700"; };
+  var lk = document.createElement("link");
+  lk.rel = "stylesheet";
+  lk.href = "https://fonts.googleapis.com/css2?" + fam(f[0]) + (f[1] !== f[0] ? "&" + fam(f[1]) : "") + "&display=swap";
+  document.head.appendChild(lk);
+
+  var radius = { sharp: "2px", soft: "14px", pill: "26px" }[DS.corner_style] || "14px";
+  rs.setProperty("--r", radius);
+  rs.setProperty("--br", DS.corner_style === "pill" ? "999px" : radius);
+  var hero = ["split", "centered", "fullbleed", "stacked", "reverse", "banner"].indexOf(DS.hero_layout) > -1 ? DS.hero_layout : "split";
+  var sec = ["cards", "lines", "tiles", "alternating", "outline", "soft"].indexOf(DS.section_style) > -1 ? DS.section_style : "cards";
+  var formStyle = ["boxed", "underline", "filled", "card", "panel", "outline"].indexOf(DS.form_style) > -1 ? DS.form_style : "boxed";
+  root.setAttribute("data-hero", hero);
+  root.setAttribute("data-sec", sec);
+  root.setAttribute("data-form", formStyle);
+
+  /* ---------- Generated logo ---------- */
+  var LG = DS.logo || {};
+  var letters = (str(LG.letters) || name.split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("")).slice(0, 2).toUpperCase();
+  var SHAPES = {
+    circle: '<circle cx="32" cy="32" r="30"/>',
+    square: '<rect x="3" y="3" width="58" height="58" rx="' + (DS.corner_style === "sharp" ? 2 : 14) + '"/>',
+    hexagon: '<polygon points="32,2 60,17 60,47 32,62 4,47 4,17"/>',
+    shield: '<path d="M32 2L58 12V32C58 48 46 58 32 62 18 58 6 48 6 32V12Z"/>',
+    leaf: '<path d="M8 57C8 24 28 6 58 6 58 38 40 58 8 57Z"/>'
+  };
+  var shape = SHAPES[LG.shape] ? LG.shape : "circle", lstyle = ["monogram", "badge", "abstract", "wordmark"].indexOf(LG.style) > -1 ? LG.style : "monogram";
+  var fs = letters.length > 1 ? 24 : 30;
+  var txt = function (fill) {
+    return '<text x="32" y="' + (32 + fs * .35) + '" text-anchor="middle" font-family="' + f[0] + ',Georgia,serif" font-weight="700" font-size="' + fs + '" fill="' + fill + '">' + esc(letters) + "</text>";
+  };
+  function logo() {
+    if (typeof LG.svg === "string" && LG.svg.indexOf("<svg") === 0) return LG.svg;
+    var s = '<svg viewBox="0 0 64 64" aria-hidden="true">';
+    if (lstyle === "wordmark") s += txt("var(--brand)") + '<rect x="12" y="54" width="40" height="4" rx="2" fill="var(--accent)"/>';
+    else if (lstyle === "badge") s += '<g fill="var(--brand)">' + SHAPES[shape] + '</g><g fill="none" stroke="var(--on-brand)" stroke-width="1.5" opacity=".6" transform="translate(5.8 5.8) scale(.82)">' + SHAPES[shape] + "</g>" + txt("var(--on-brand)");
+    else if (lstyle === "abstract") s += '<g fill="var(--brand)">' + SHAPES[shape] + '</g><circle cx="42" cy="42" r="17" fill="var(--accent)" opacity=".92"/>' + txt("var(--on-brand)");
+    else s += '<g fill="var(--brand)">' + SHAPES[shape] + "</g>" + txt("var(--on-brand)") + '<circle cx="54" cy="10" r="5" fill="var(--accent)"/>';
+    return s + "</svg>";
+  }
+
+  /* ---------- SEO ---------- */
+  document.title = headline !== name ? name + " | " + headline : name;
+  var meta = str(D.hero_description);
+  if (meta) document.querySelector('meta[name="description"]').setAttribute("content", meta.slice(0, 160));
+  var ld = document.createElement("script"); ld.type = "application/ld+json";
+  ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: name, description: meta || undefined });
+  document.head.appendChild(ld);
+
+  /* ---------- Parts ---------- */
+  var la = function (u) { return 'href="' + esc(u) + '"' + (ext(u) ? ' target="_blank" rel="noopener noreferrer"' : ""); };
+  var btn = function (t, l, c) { return t && l ? '<a class="btn ' + (c || "") + '" ' + la(l) + ">" + esc(t) + "</a>" : ""; };
+  var ctaText = str(D.primary_cta_text), ctaLink = safeUrl(D.primary_cta_link) || (ctaText ? "#contact" : "");
+  var secText = str(D.secondary_cta_text), secLink = safeUrl(D.secondary_cta_link);
+  if (!secText && offers.length) { secText = "View offers"; secLink = "#offers"; }
+
+  var nav = [["home", "Home"]];
+  if (hasAbout) nav.push(["about", "About"]);
+  if (expertise.length) nav.push(["expertise", "Expertise"]);
+  if (offers.length) nav.push(["offers", "Offers"]);
+  nav.push(["contact", "Contact"]);
+  var navLinks = nav.map(function (n) { return '<li><a href="#' + n[0] + '">' + n[1] + "</a></li>"; }).join("");
+
+  var head = function (t, k) { return '<div class="head"><h2>' + esc(title(k, t)) + "</h2></div>"; };
+  var items = function (arr, fn) { return '<div class="grid">' + arr.map(function (x) { return '<article class="item">' + fn(x) + "</article>"; }).join("") + "</div>"; };
+  var pd = function (t) { return t ? "<p>" + esc(t) + "</p>" : ""; };
+
+  var html =
+    '<header class="site"><div class="wrap bar"><a class="logo" href="#home">' + logo() + "<span>" + esc(name) + "</span></a>" +
+    '<nav id="nav" aria-label="Main"><ul>' + navLinks + "</ul></nav>" + btn(ctaText, ctaLink) +
+    '<button class="menu" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button></div></header><main>' +
+    '<section class="hero" id="home"><div class="wrap hero-in"><div><h1>' + esc(headline) + "</h1>" +
+    (meta ? '<p class="lead">' + esc(meta) + "</p>" : "") + '<div class="cta">' + btn(ctaText, ctaLink) + btn(secText, secLink, "ghost") + "</div></div></div></section>" +
+
+    (hasAbout ? '<section id="about"><div class="wrap about"><h2>' + esc(str(D.about_title) || "About") + '</h2><div>' + paras(aboutText) +
+      (str(D.target_audience) ? '<p class="aud">Who this is for: ' + esc(D.target_audience) + "</p>" : "") + "</div></div></section>" : "") +
+
+    (expertise.length ? '<section id="expertise"><div class="wrap">' + head("Expertise", "expertise") + items(expertise, function (e) { return "<h3>" + esc(e.title) + "</h3>" + pd(e.description); }) + "</div></section>" : "") +
+
+    (offers.length ? '<section id="offers"><div class="wrap">' + head("Offers", "offers") + items(offers, function (o) {
+      var l = safeUrl(o.cta_link) || "#contact";
+      return (o.type ? '<span class="type">' + esc(o.type) + "</span>" : "") + "<h3>" + esc(o.title) + "</h3>" + pd(o.description) +
+        (o.price ? '<div class="price">' + esc(o.price) + "</div>" : "") + btn(o.cta_text || "Learn more", l);
+    }) + "</div></section>" : "") +
+
+    (benefits.length ? '<section class="band" id="benefits"><div class="wrap">' + head("Why choose us", "benefits") + items(benefits, function (b) { return "<h3>" + esc(b.title) + "</h3>" + pd(b.description); }) + "</div></section>" : "") +
+
+    (tests.length ? '<section id="testimonials"><div class="wrap">' + head("Testimonials", "testimonials") + '<div class="grid">' + tests.map(function (t) {
+      return "<blockquote><p>“" + esc(t.quote) + "”</p>" + (t.name ? "<footer><strong>" + esc(t.name) + "</strong>" + (t.role ? ", " + esc(t.role) : "") + "</footer>" : "") + "</blockquote>";
+    }).join("") + "</div></div></section>" : "") +
+
+    (results.length ? '<section id="results"><div class="wrap">' + head("Results", "results") + items(results, function (r) {
+      return (r.metric ? '<div class="metric">' + esc(r.metric) + "</div>" : "") + (r.label ? "<h3>" + esc(r.label) + "</h3>" : "") + pd(r.description);
+    }) + "</div></section>" : "");
+
+  /* ---------- Contact form (always present, all fields required) ---------- */
+  var FL = D.form_labels || {};
+  var L = { name: str(FL.name) || "Name", email: str(FL.email) || "Email", message: str(FL.message) || "Message" };
+  var btnText = str(D.form_button_text) || "Send message";
+  var okText = str(D.form_success_message) || "Thank you. Your message has been sent.";
+  var contactDesc = str(D.contact_description);
+  var req = ' <i aria-hidden="true">*</i>';
+
+  var info = (email || socials.length) ? '<div class="info">' + (email ? '<p>Email <a href="mailto:' + esc(email) + '">' + esc(email) + "</a></p>" : "") +
+    (socials.length ? "<ul>" + socials.map(function (s) { return "<li><a " + la(safeUrl(s.url)) + ">" + esc(s.platform) + "</a></li>"; }).join("") + "</ul>" : "") + "</div>" : "";
+  var form = '<form id="leadForm" novalidate>' +
+    '<label>' + esc(L.name) + req + '<input name="name" type="text" autocomplete="name" required aria-required="true"></label>' +
+    '<label>' + esc(L.email) + req + '<input name="email" type="email" autocomplete="email" required aria-required="true"></label>' +
+    '<label>' + esc(L.message) + req + '<textarea name="message" required aria-required="true"></textarea></label>' +
+    '<div class="hp" aria-hidden="true"><input name="company_website" tabindex="-1" autocomplete="off"></div>' +
+    '<button class="btn" type="submit">' + esc(btnText) + '</button><div class="status" id="st" role="status" aria-live="polite"></div></form>';
+
+  html += '<section class="contact-sec" id="contact"><div class="wrap contact"><div><h2>' + esc(title("contact", "Get in touch")) + "</h2>" +
+    (contactDesc ? '<p class="lead">' + esc(contactDesc) + "</p>" : "") + info + "</div><div>" + form + "</div></div></section>" +
+    '</main><footer class="site"><div class="wrap foot"><div><strong>' + esc(name) + "</strong><div>© " + new Date().getFullYear() + " " + esc(name) + "</div></div><ul>" + navLinks + "</ul></div></footer>";
+
+  document.getElementById("app").innerHTML = html;
+
+  /* ---------- Behaviour ---------- */
+  var mb = document.getElementById("menuBtn"), nv = document.getElementById("nav");
+  var setMenu = function (o) { nv.classList.toggle("open", o); mb.setAttribute("aria-expanded", String(o)); mb.textContent = o ? "Close" : "Menu"; };
+  mb.addEventListener("click", function () { setMenu(!nv.classList.contains("open")); });
+  nv.addEventListener("click", function (e) { if (e.target.tagName === "A") setMenu(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
+
+  var fm = document.getElementById("leadForm");
+  fm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var el = fm.elements, st = document.getElementById("st");
+    var say = function (m, c) { st.textContent = m; st.className = "status " + (c || ""); };
+    if (el.company_website.value) return;
+
+    var p = { application_id: appId, name: el.name.value.trim(), email: el.email.value.trim(), message: el.message.value.trim() };
+    var bad = { name: !p.name, email: !/^\S+@\S+\.\S+$/.test(p.email), message: !p.message };
+    var first = null;
+    ["name", "email", "message"].forEach(function (k) {
+      el[k].setAttribute("aria-invalid", bad[k] ? "true" : "false");
+      if (bad[k] && !first) first = el[k];
+    });
+    if (first) { first.focus(); return say("Please fill in all fields with a valid email address.", "err"); }
+    if (!appId) return say("This form is not configured yet. Please try again later.", "err");
+
+    var sb = fm.querySelector("button"); sb.disabled = true; say("Sending…");
+    fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(p) })
+      .then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          if (!r.ok || j.success === false) throw 0;
+          fm.reset(); say(okText, "ok");
+        });
+      })
+      .catch(function () { say("Your message could not be sent. Please try again." + (email ? " You can also email " + email + "." : ""), "err"); })
+      .then(function () { sb.disabled = false; });
+  });
+})();
+</script></body></html>
